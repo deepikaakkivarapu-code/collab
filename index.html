@@ -1,85 +1,207 @@
 <!DOCTYPE html>
-}
-</style>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manga Artists Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #1f2937;
+      color: #fff;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .search-bar {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .search-bar input {
+      width: 100%;
+      max-width: 400px;
+      padding: 0.7rem 1rem;
+      font-size: 1rem;
+      border: 2px solid #1f2937;
+      border-radius: 5px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .artist-name {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #1f2937;
+      margin-bottom: 0.3rem;
+    }
+
+    .bio {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      color: #555;
+    }
+
+    .collections {
+      margin-top: 1rem;
+    }
+
+    .collections h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .collections ul {
+      padding-left: 1.2rem;
+    }
+
+    .collections li {
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    @media (max-width: 480px) {
+      header {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-<header>
-<h1>Manga Artists & Collections</h1>
-</header>
 
+<header>Manga Artists Dashboard</header>
 
-<div class="search-bar">
-<input type="text" id="search" placeholder="Search artists or collections...">
+<div class="container">
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search artists..." oninput="filterArtists()" />
+  </div>
+
+  <div class="grid" id="artistGrid">
+    <!-- Artist cards will be injected here -->
+  </div>
 </div>
 
-
-<div class="container" id="artistContainer">
-<!-- Cards will be inserted here by JS -->
-</div>
-
+<footer>
+  &copy; 2025 Manga Artists Dashboard. Built for manga lovers.
+</footer>
 
 <script>
-const artists = [
-{
-name: "Eiichiro Oda",
-collections: ["One Piece"]
-},
-{
-name: "Masashi Kishimoto",
-collections: ["Naruto", "Samurai 8"]
-},
-{
-name: "Akira Toriyama",
-collections: ["Dragon Ball", "Dr. Slump"]
-},
-{
-name: "Rumiko Takahashi",
-collections: ["Inuyasha", "Ranma ½", "Urusei Yatsura"]
-},
-{
-name: "Hajime Isayama",
-collections: ["Attack on Titan"]
-},
-{
-name: "Naoko Takeuchi",
-collections: ["Sailor Moon"]
-}
-];
+  const artists = [
+    {
+      name: "Eiichiro Oda",
+      bio: "Creator of the long-running and beloved series One Piece.",
+      collections: ["One Piece"]
+    },
+    {
+      name: "Rumiko Takahashi",
+      bio: "Known for her romantic comedies and action-packed stories.",
+      collections: ["Inuyasha", "Ranma ½", "Urusei Yatsura"]
+    },
+    {
+      name: "Naoko Takeuchi",
+      bio: "Best known for creating the magical girl phenomenon Sailor Moon.",
+      collections: ["Sailor Moon", "Codename: Sailor V"]
+    },
+    {
+      name: "Masashi Kishimoto",
+      bio: "Renowned for the global hit Naruto and its sequel Boruto.",
+      collections: ["Naruto", "Boruto: Naruto Next Generations"]
+    },
+    {
+      name: "Kentaro Miura",
+      bio: "Legendary for the dark fantasy masterpiece Berserk.",
+      collections: ["Berserk"]
+    },
+    {
+      name: "CLAMP",
+      bio: "A group of female artists known for magical and crossover stories.",
+      collections: ["Cardcaptor Sakura", "xxxHolic", "Tsubasa: Reservoir Chronicle"]
+    },
+    {
+      name: "Akira Toriyama",
+      bio: "Pioneer of shonen manga, best known for Dragon Ball.",
+      collections: ["Dragon Ball", "Dr. Slump"]
+    },
+    {
+      name: "Hajime Isayama",
+      bio: "Known for the post-apocalyptic series Attack on Titan.",
+      collections: ["Attack on Titan"]
+    }
+  ];
 
+  function createCard(artist) {
+    return `
+      <div class="card">
+        <div class="artist-name">${artist.name}</div>
+        <div class="bio">${artist.bio}</div>
+        <div class="collections">
+          <h4>Collections:</h4>
+          <ul>
+            ${artist.collections.map(c => `<li>${c}</li>`).join("")}
+          </ul>
+        </div>
+      </div>
+    `;
+  }
 
-const container = document.getElementById("artistContainer");
+  function displayArtists(artistList) {
+    const container = document.getElementById("artistGrid");
+    container.innerHTML = artistList.map(createCard).join("");
+  }
 
+  function filterArtists() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const filtered = artists.filter(artist => artist.name.toLowerCase().includes(query));
+    displayArtists(filtered);
+  }
 
-function displayArtists(list) {
-container.innerHTML = "";
-list.forEach(artist => {
-const card = document.createElement("div");
-card.className = "card";
-card.innerHTML = `
-<h2>${artist.name}</h2>
-<h4>Collections:</h4>
-<ul class="collection">
-${artist.collections.map(c => <li>${c}</li>).join("")}
-</ul>
-`;
-container.appendChild(card);
-});
-}
-
-
-// Initial display
-displayArtists(artists);
-
-
-// Search functionality
-document.getElementById("search").addEventListener("input", function(e) {
-const query = e.target.value.toLowerCase();
-const filtered = artists.filter(a =>
-a.name.toLowerCase().includes(query) ||
-a.collections.some(c => c.toLowerCase().includes(query))
-);
-displayArtists(filtered);
-});
+  // Initial render
+  displayArtists(artists);
 </script>
+
 </body>
 </html>
+
