@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Manga Artists Dashboard</title>
+  <title>Stop Motion Animation Styles Dashboard</title>
   <style>
     * {
       box-sizing: border-box;
@@ -11,17 +11,18 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
       color: #333;
     }
 
     header {
-      background-color: #1f2937;
+      background-color: #1a1a2e;
       color: #fff;
       padding: 1.5rem;
       text-align: center;
       font-size: 2rem;
+      font-weight: bold;
     }
 
     .container {
@@ -31,17 +32,17 @@
     }
 
     .search-bar {
-      margin-bottom: 2rem;
       text-align: center;
+      margin-bottom: 2rem;
     }
 
     .search-bar input {
-      width: 100%;
-      max-width: 400px;
       padding: 0.7rem 1rem;
       font-size: 1rem;
-      border: 2px solid #1f2937;
       border-radius: 5px;
+      border: 2px solid #1a1a2e;
+      width: 100%;
+      max-width: 400px;
     }
 
     .grid {
@@ -51,56 +52,55 @@
     }
 
     .card {
-      background: #fff;
+      background-color: #fff;
       padding: 1.5rem;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     }
 
-    .artist-name {
+    .style-title {
       font-size: 1.3rem;
+      color: #1a1a2e;
       font-weight: bold;
-      color: #1f2937;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
     }
 
-    .bio {
+    .description {
       font-size: 0.95rem;
-      margin-bottom: 1rem;
       color: #555;
+      margin-bottom: 1rem;
     }
 
-    .collections {
+    .examples {
       margin-top: 1rem;
     }
 
-    .collections h4 {
-      margin-bottom: 0.5rem;
+    .examples h4 {
       font-size: 1rem;
-      color: #444;
+      margin-bottom: 0.4rem;
     }
 
-    .collections ul {
+    .examples ul {
+      list-style: disc;
       padding-left: 1.2rem;
     }
 
-    .collections li {
-      font-size: 0.95rem;
+    .examples li {
+      font-size: 0.9rem;
       margin-bottom: 0.3rem;
     }
 
     footer {
       text-align: center;
-      margin-top: 3rem;
       padding: 1rem;
+      margin-top: 3rem;
       font-size: 0.9rem;
-      color: #777;
+      color: #888;
     }
 
     @media (max-width: 480px) {
@@ -112,96 +112,94 @@
 </head>
 <body>
 
-<header>Manga Artists Dashboard</header>
+<header>Stop Motion Animation Styles Dashboard</header>
 
 <div class="container">
   <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search artists..." oninput="filterArtists()" />
+    <input type="text" id="searchInput" placeholder="Search stop motion styles..." oninput="filterStyles()" />
   </div>
 
-  <div class="grid" id="artistGrid">
-    <!-- Artist cards will be injected here -->
+  <div class="grid" id="styleGrid">
+    <!-- Cards injected here -->
   </div>
 </div>
 
 <footer>
-  &copy; 2025 Manga Artists Dashboard. Built for manga lovers.
+  &copy; 2025 Stop Motion Styles Dashboard — For Animation Enthusiasts
 </footer>
 
 <script>
-  const artists = [
+  const styles = [
     {
-      name: "Eiichiro Oda",
-      bio: "Creator of the long-running and beloved series One Piece.",
-      collections: ["One Piece"]
+      title: "Claymation",
+      description: "Uses characters and sets made of clay or plasticine. Frames are captured while reshaping the clay between shots.",
+      examples: ["Wallace & Gromit", "Chicken Run", "ParaNorman"]
     },
     {
-      name: "Rumiko Takahashi",
-      bio: "Known for her romantic comedies and action-packed stories.",
-      collections: ["Inuyasha", "Ranma ½", "Urusei Yatsura"]
+      title: "Puppet Animation",
+      description: "Uses articulated puppets made of various materials with movable joints for more realistic movement.",
+      examples: ["The Nightmare Before Christmas", "Coraline", "Frankenweenie"]
     },
     {
-      name: "Naoko Takeuchi",
-      bio: "Best known for creating the magical girl phenomenon Sailor Moon.",
-      collections: ["Sailor Moon", "Codename: Sailor V"]
+      title: "Cutout Animation",
+      description: "Uses flat materials like paper or fabric. Characters and objects are moved frame-by-frame.",
+      examples: ["South Park (early seasons)", "Angela Anaconda"]
     },
     {
-      name: "Masashi Kishimoto",
-      bio: "Renowned for the global hit Naruto and its sequel Boruto.",
-      collections: ["Naruto", "Boruto: Naruto Next Generations"]
+      title: "Object Animation",
+      description: "Uses everyday objects (toys, utensils, etc.) as characters. Objects are moved in small steps and photographed.",
+      examples: ["The Secret Adventures of Tom Thumb"]
     },
     {
-      name: "Kentaro Miura",
-      bio: "Legendary for the dark fantasy masterpiece Berserk.",
-      collections: ["Berserk"]
+      title: "Pixilation",
+      description: "A stop-motion technique where live actors are used as frame-by-frame subjects, creating surreal movements.",
+      examples: ["Neighbours by Norman McLaren", "The Secret Adventures of Tom Thumb"]
     },
     {
-      name: "CLAMP",
-      bio: "A group of female artists known for magical and crossover stories.",
-      collections: ["Cardcaptor Sakura", "xxxHolic", "Tsubasa: Reservoir Chronicle"]
+      title: "Silhouette Animation",
+      description: "Uses backlit cutouts or shadows to create a unique aesthetic, often in black and white.",
+      examples: ["The Adventures of Prince Achmed"]
     },
     {
-      name: "Akira Toriyama",
-      bio: "Pioneer of shonen manga, best known for Dragon Ball.",
-      collections: ["Dragon Ball", "Dr. Slump"]
-    },
-    {
-      name: "Hajime Isayama",
-      bio: "Known for the post-apocalyptic series Attack on Titan.",
-      collections: ["Attack on Titan"]
+      title: "Lego Animation (Brickfilm)",
+      description: "Uses LEGO bricks and minifigures to create entertaining and creative stop-motion films.",
+      examples: ["The LEGO Movie (inspired style)", "YouTube Brickfilms"]
     }
   ];
 
-  function createCard(artist) {
+  function createCard(style) {
     return `
       <div class="card">
-        <div class="artist-name">${artist.name}</div>
-        <div class="bio">${artist.bio}</div>
-        <div class="collections">
-          <h4>Collections:</h4>
+        <div class="style-title">${style.title}</div>
+        <div class="description">${style.description}</div>
+        <div class="examples">
+          <h4>Examples:</h4>
           <ul>
-            ${artist.collections.map(c => `<li>${c}</li>`).join("")}
+            ${style.examples.map(example => `<li>${example}</li>`).join("")}
           </ul>
         </div>
       </div>
     `;
   }
 
-  function displayArtists(artistList) {
-    const container = document.getElementById("artistGrid");
-    container.innerHTML = artistList.map(createCard).join("");
+  function displayStyles(stylesToShow) {
+    const container = document.getElementById("styleGrid");
+    container.innerHTML = stylesToShow.map(createCard).join("");
   }
 
-  function filterArtists() {
+  function filterStyles() {
     const query = document.getElementById("searchInput").value.toLowerCase();
-    const filtered = artists.filter(artist => artist.name.toLowerCase().includes(query));
-    displayArtists(filtered);
+    const filtered = styles.filter(style =>
+      style.title.toLowerCase().includes(query)
+    );
+    displayStyles(filtered);
   }
 
   // Initial render
-  displayArtists(artists);
+  displayStyles(styles);
 </script>
 
 </body>
 </html>
+
 
